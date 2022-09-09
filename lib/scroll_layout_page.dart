@@ -13,13 +13,19 @@ class ScrollLayoutPage extends StatefulWidget {
 class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   late ScrollController _verticalController;
   late ScrollController _horizontalController;
-  late ScrollController _gridController;
+  late ScrollController _gridExtentController;
+  late ScrollController _gridCountController;
+  late ScrollController _listController;
+  late ScrollController _globalController;
 
   @override
   void initState() {
     _verticalController = ScrollController();
     _horizontalController = ScrollController();
-    _gridController = ScrollController();
+    _gridExtentController = ScrollController();
+    _gridCountController = ScrollController();
+    _listController = ScrollController();
+    _globalController = ScrollController();
 
     super.initState();
   }
@@ -28,7 +34,10 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   void dispose() {
     _verticalController.dispose();
     _horizontalController.dispose();
-    _gridController.dispose();
+    _gridExtentController.dispose();
+    _gridCountController.dispose();
+    _listController.dispose();
+    _globalController.dispose();
 
     super.dispose();
   }
@@ -37,21 +46,22 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("滚动布局"),
+        title: const Text("滚动布局"),
       ),
       body: SingleChildScrollView(
+        controller: _globalController,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildSingleChildScrollViewHorizontal(),
-            Divider(),
+            const Divider(),
             _buildSingleChildScrollViewVertical(),
-            Divider(),
+            const Divider(),
             _buildListViewVertical(),
-            Divider(),
+            const Divider(),
             _buildGridViewFixedCrossAxisCount(),
-            Divider(),
+            const Divider(),
             _buildGridViewMaxCrossAxisExtent(),
           ],
         ),
@@ -62,14 +72,14 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget _buildGridViewMaxCrossAxisExtent() {
     return Column(
       children: [
-        Text("GridView(MaxCrossAxisExtent)"),
+        const Text("GridView(MaxCrossAxisExtent)"),
         Container(
           height: 500,
           width: 600,
           color: Colors.grey,
           child: GridView(
-            controller: _gridController,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            controller: _gridExtentController,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200),
             children: List.generate(
                 10,
@@ -88,15 +98,15 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget _buildGridViewFixedCrossAxisCount() {
     return Column(
       children: [
-        Text("GridView(FixedCrossAxisCount)"),
+        const Text("GridView(FixedCrossAxisCount)"),
         Container(
           height: 500,
           width: 600,
           color: Colors.grey,
           child: GridView(
-            controller: _gridController,
+            controller: _gridCountController,
             gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
             children: List.generate(
                 10,
                 (index) => Container(
@@ -114,15 +124,19 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget _buildListViewVertical() {
     return Column(
       children: [
-        Text("ListView垂直滚动列表(10个元素)"),
+        const Text("ListView垂直滚动列表(10个元素)"),
         Container(
           height: 100,
           width: 500,
           color: Colors.green,
           child: ListView(
-            children: List.generate(10, (index) {
-              return Center(child: Text("列表: $index"));
-            }),
+            controller: _listController,
+            children: List.generate(
+              10,
+              (index) {
+                return Center(child: Text("列表: $index"));
+              },
+            ),
           ),
         ),
       ],
@@ -132,9 +146,9 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget _buildSingleChildScrollViewHorizontal() {
     return Column(
       children: [
-        Text("SingleChildScrollView水平滚动"),
+        const Text("SingleChildScrollView水平滚动"),
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black12,
           ),
           width: 600,
@@ -160,9 +174,9 @@ class _ScrollLayoutPageState extends State<ScrollLayoutPage> {
   Widget _buildSingleChildScrollViewVertical() {
     return Column(
       children: [
-        Text("SingleChildScrollView垂直滚动"),
+        const Text("SingleChildScrollView垂直滚动"),
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black12,
           ),
           height: 200,

@@ -2,16 +2,39 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class LineLayoutWidget extends StatelessWidget {
+class LineLayoutWidget extends StatefulWidget {
   const LineLayoutWidget({Key? key}) : super(key: key);
+
+  @override
+  State<LineLayoutWidget> createState() => _LineLayoutWidgetState();
+}
+
+class _LineLayoutWidgetState extends State<LineLayoutWidget> {
+  late ScrollController _controller0;
+
+  @override
+  void initState() {
+    _controller0 = ScrollController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller0.dispose();
+
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("线性布局"),
+        title: const Text("线性布局"),
       ),
       body: SingleChildScrollView(
+        controller: _controller0,
         child: Column(
           children: [
             _buildRow(label: "row default:"),
@@ -100,7 +123,7 @@ class LineLayoutWidget extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

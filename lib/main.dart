@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: [
+        children: const [
           LineLayoutWidget(),
           FlexLayoutPage(),
           WrapLayoutPage(),
@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(label: "线性", icon: Icon(Icons.layers_outlined)),
           BottomNavigationBarItem(label: "弹性", icon: Icon(Icons.layers_outlined)),
           BottomNavigationBarItem(label: "流式", icon: Icon(Icons.layers_outlined)),

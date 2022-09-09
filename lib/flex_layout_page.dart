@@ -9,13 +9,13 @@ class FlexLayoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("弹性布局"),
+        title: const Text("弹性布局"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             _build1(),
-            Divider(),
+            const Divider(),
             _build2(),
           ],
         ),
@@ -24,19 +24,19 @@ class FlexLayoutPage extends StatelessWidget {
   }
 
   Widget _build2() {
-    return Container(
+    return SizedBox(
       height: 300,
       child: Column(
         children: [
-          Text("线性与弹性混合使用，实现按钮贴于底部"),
+          const Text("线性与弹性混合使用，实现按钮贴于底部"),
           Expanded(
             child: Container(
               color: Colors.green,
               width: double.infinity,
-              child: Center(child: Text("中间可弹性伸缩空间")),
+              child: const Center(child: Text("中间可弹性伸缩空间")),
             ),
           ),
-          ElevatedButton(onPressed: () {}, child: Text("底部按钮")),
+          ElevatedButton(onPressed: () {}, child: const Text("底部按钮")),
         ],
       ),
     );
@@ -45,7 +45,7 @@ class FlexLayoutPage extends StatelessWidget {
   Widget _build1() {
     return Column(
       children: [
-        Text("3个元素，按20 20 60比例分配空间"),
+        const Text("3个元素，按20 20 60比例分配空间"),
         Row(
           children: [
             Expanded(

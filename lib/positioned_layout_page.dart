@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -11,11 +10,13 @@ class PositionedLayoutWidget extends StatefulWidget {
 }
 
 class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
+  late ScrollController _globalController;
   late ScrollController _verticalController;
   late ScrollController _horizontalController;
 
   @override
   void initState() {
+    _globalController = ScrollController();
     _verticalController = ScrollController();
     _horizontalController = ScrollController();
 
@@ -24,6 +25,7 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
 
   @override
   void dispose() {
+    _globalController.dispose();
     _verticalController.dispose();
     _horizontalController.dispose();
 
@@ -34,13 +36,14 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("绝对定位"),
+        title: const Text("绝对定位"),
       ),
       body: SingleChildScrollView(
+        controller: _globalController,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Center"),
+            const Text("Center"),
             Container(
               width: 300,
               height: 300,
@@ -50,14 +53,14 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
                   width: 100,
                   height: 100,
                   color: Colors.white,
-                  child: Text("小矩形"),
+                  child: const Text("小矩形"),
                 ),
               ),
 
             ),
-            Divider(),
-            Text("Positioned"),
-            Container(
+            const Divider(),
+            const Text("Positioned"),
+            SizedBox(
                 width: 300,
                 height: 300,
                 child: Stack(
@@ -71,7 +74,7 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
                         width: 100,
                         height: 100,
                         color: Colors.green,
-                        child: Text("小矩形，左上"),
+                        child: const Text("小矩形，左上"),
                       ),
                     ),
                     Positioned(
@@ -81,7 +84,7 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
                         width: 100,
                         height: 100,
                         color: Colors.green,
-                        child: Text("小矩形，左下"),
+                        child: const Text("小矩形，左下"),
                       ),
                     ),
                     Positioned(
@@ -90,7 +93,7 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
                         width: 100,
                         height: 100,
                         color: Colors.green,
-                        child: Text("小矩形，右上"),
+                        child: const Text("小矩形，右上"),
                       ),
                     ),
                     Positioned(
@@ -100,13 +103,13 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
                         width: 100,
                         height: 100,
                         color: Colors.green,
-                        child: Text("小矩形，右下"),
+                        child: const Text("小矩形，右下"),
                       ),
                     ),
                   ],
                 )),
-            Divider(),
-            Text("Align定位"),
+            const Divider(),
+            const Text("Align定位"),
             Row(
               children: [
                 _buildAlignContainer("alignment: topLeft", Alignment.topLeft),
@@ -128,24 +131,26 @@ class _PositionedLayoutWidget extends State<PositionedLayoutWidget> {
   }
 
   Widget _buildAlignContainer(String text, Alignment alignment) {
-    return Column(
-      children: [
-        Text(text),
-        Container(
-          width: 200,
-          height: 200,
-          color: Color.fromARGB(255, Random().nextInt(256), Random().nextInt(256), Random().nextInt(256)),
-          child: Align(
-            alignment: alignment,
-            child: Container(
-              width: 50,
-              height: 50,
-              color: Colors.white,
-              child: Text("小矩形"),
+    return Expanded(
+      child: Column(
+        children: [
+          Text(text),
+          Container(
+            width: 200,
+            height: 200,
+            color: Color.fromARGB(255, Random().nextInt(256), Random().nextInt(256), Random().nextInt(256)),
+            child: Align(
+              alignment: alignment,
+              child: Container(
+                width: 50,
+                height: 50,
+                color: Colors.white,
+                child: const Text("小矩形"),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
